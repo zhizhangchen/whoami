@@ -16,7 +16,6 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.stubbing.Answer
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.api.mockito.PowerMockito.whenNew
 import org.powermock.core.classloader.annotations.PrepareForTest
@@ -26,19 +25,19 @@ import org.powermock.modules.junit4.PowerMockRunner
 @RunWith(PowerMockRunner::class)
 @PrepareForTest(PendingIntent::class, NotificationScheduler::class, PreferenceManager::class)
 
-class ScheduleNotificationTest() {
+class ScheduleNotificationTest {
     companion object {
         private val INTERVAL = 500L
     }
+
+    @Mock
+    private lateinit var context : Context;
 
     @Mock
     private lateinit var am : AlarmManager;
 
     @Mock
     private lateinit var nm : NotificationManager;
-
-    @Mock
-    private lateinit var context : Context;
 
     @Mock
     private lateinit var schedulingPendingIntent: PendingIntent;
