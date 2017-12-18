@@ -10,11 +10,19 @@ import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
 import android.preference.PreferenceManager
 
-class NotificationScheduler : BroadcastReceiver() {
+open class NotificationScheduler(private val context: Context? = null, private val interval: Long = 0) : BroadcastReceiver() {
+    companion object {
+        val CHANNEL_ID = "Feelings"
+        val TITLE = "How are you feeling"
+        val SUB_TITLE = "Observe your feelings without judgement"
+        val PREFERENCE_ALARM_SET: String = "ALARM_SET"
+    }
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val nm = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val remoteViews = RemoteViews(context.packageName, R.layout.feelings);
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomContentView(remoteViews)
         val feelings = FeelingReminder().getFeelingList()
         remoteViews.setTextViewText(R.id.title, TITLE)
@@ -46,27 +54,20 @@ class NotificationScheduler : BroadcastReceiver() {
         nm.notify(0, notificationBuilder.build());
     }
 
-    companion object {
-        val CHANNEL_ID = "Feelings"
-        val TITLE = "How are you feeling"
-        val SUB_TITLE = "Observe your feelings without judgement"
-        val PREFERENCE_ALARM_SET: String = "ALARM_SET"
-
-        fun schedule(context: Context, interval: Long) {
-            val p = PreferenceManager.getDefaultSharedPreferences(context)
-            val alarmSet = p.getBoolean(PREFERENCE_ALARM_SET, false)
-            if (!alarmSet) {
-                p.edit().putBoolean(PREFERENCE_ALARM_SET, true).apply()
-                val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                am.setRepeating(
-                        AlarmManager.RTC_WAKEUP,
-                        0,
-                        interval,
-                        PendingIntent.getBroadcast(
-                                context,
-                                0,
-                                Intent(context, NotificationScheduler::class.java), 0))
-            }
+    open fun schedule() {
+        val p = PreferenceManager.getDefaultSharedPreferences(context)
+        val alarmSet = p.getBoolean(PREFERENCE_ALARM_SET, false)
+        if (!alarmSet) {
+            p.edit().putBoolean(PREFERENCE_ALARM_SET, true).apply()
+            val am = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            am.setRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    5000,
+                    interval,
+                    PendingIntent.getBroadcast(
+                            context,
+                            0,
+                            Intent(context, NotificationScheduler::class.java), 0))
         }
     }
 }

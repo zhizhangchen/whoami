@@ -86,7 +86,7 @@ class ScheduleNotificationTest {
         val sharedPreference = mock(SharedPreferences::class.java)
         val editor = mock(SharedPreferences.Editor::class.java)
         `when`(sharedPreference.edit()).thenReturn(editor)
-        `when`(editor.putBoolean(PREFERENCE_ALARM_SET, true)).then { alarmSet = true; editor }
+        doAnswer{alarmSet = true; editor }.`when`(editor).putBoolean(PREFERENCE_ALARM_SET, true)
         doAnswer{alarmSet}.`when`(sharedPreference).getBoolean(eq(PREFERENCE_ALARM_SET), ArgumentMatchers.anyBoolean())
         PowerMockito.mockStatic(PreferenceManager::class.java)
         `when`(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreference)
@@ -94,7 +94,7 @@ class ScheduleNotificationTest {
 
     @Test
     fun notification_scheduled() {
-        NotificationScheduler.schedule(context, INTERVAL);
+        NotificationScheduler(context, INTERVAL).schedule();
         verify(am).setRepeating(
                 ArgumentMatchers.anyInt(),
                 ArgumentMatchers.anyLong(),
@@ -104,8 +104,9 @@ class ScheduleNotificationTest {
 
     @Test
     fun schedule_onlyFirstTime() {
-        NotificationScheduler.schedule(context, INTERVAL);
-        NotificationScheduler.schedule(context, INTERVAL);
+        val scheduler  = NotificationScheduler(context, INTERVAL)
+        scheduler.schedule();
+        scheduler.schedule();
         verify(am).setRepeating(
                 ArgumentMatchers.anyInt(),
                 ArgumentMatchers.anyLong(),
@@ -125,9 +126,11 @@ class ScheduleNotificationTest {
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
         val notification = mock(Notification::class.java)
         `when`(notificationBuilder.build()).thenReturn(notification)
+        `when`(notificationBuilder.setSmallIcon(ArgumentMatchers.anyInt())).thenReturn(notificationBuilder)
         `when`(notificationBuilder.setCustomContentView(any(RemoteViews::class.java))).thenReturn(notificationBuilder)
-        NotificationScheduler().onReceive(context, intent)
+        NotificationScheduler(context, INTERVAL).onReceive(context, intent)
         verify(nm).notify(ArgumentMatchers.anyInt(), eq(notification));
+        verify(notificationBuilder).setSmallIcon(R.mipmap.ic_launcher);
         verify(notificationBuilder).setCustomContentView(any(RemoteViews::class.java))
         verify(remoteViews).setTextViewText(R.id.title, NotificationScheduler.TITLE)
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)

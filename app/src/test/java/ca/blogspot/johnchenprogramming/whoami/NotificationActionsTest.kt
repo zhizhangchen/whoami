@@ -7,13 +7,11 @@ import org.junit.Assert.*
 import android.app.NotificationManager
 import android.content.Context
 import org.junit.Before
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.MockitoAnnotations
 
 
-@RunWith(MockitoJUnitRunner::class)
 class NotificationActionsTest {
     @Mock
     private lateinit var context : Context;
@@ -23,6 +21,7 @@ class NotificationActionsTest {
 
     @Before
     fun setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
