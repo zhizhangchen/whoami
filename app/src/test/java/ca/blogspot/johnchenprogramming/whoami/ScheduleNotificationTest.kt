@@ -5,6 +5,7 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.*
+import android.os.Build
 import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
@@ -94,12 +95,8 @@ class ScheduleNotificationTest {
 
     @Test
     fun notification_scheduled() {
-        NotificationScheduler(context, INTERVAL).schedule();
-        verify(am).setRepeating(
-                ArgumentMatchers.anyInt(),
-                ArgumentMatchers.anyLong(),
-                eq(INTERVAL),
-                eq(schedulingPendingIntent))
+        NotificationScheduler(context, INTERVAL).schedule()
+        verify(am).set(eq(AlarmManager.RTC), ArgumentMatchers.anyLong(), eq(schedulingPendingIntent))
     }
 
     @Test
@@ -107,10 +104,9 @@ class ScheduleNotificationTest {
         val scheduler  = NotificationScheduler(context, INTERVAL)
         scheduler.schedule();
         scheduler.schedule();
-        verify(am).setRepeating(
-                ArgumentMatchers.anyInt(),
+        verify(am).set(
+                eq(AlarmManager.RTC),
                 ArgumentMatchers.anyLong(),
-                eq(INTERVAL),
                 eq(schedulingPendingIntent))
     }
 
@@ -130,7 +126,7 @@ class ScheduleNotificationTest {
         `when`(notificationBuilder.setCustomContentView(any(RemoteViews::class.java))).thenReturn(notificationBuilder)
         NotificationScheduler(context, INTERVAL).onReceive(context, intent)
         verify(nm).notify(ArgumentMatchers.anyInt(), eq(notification));
-        verify(notificationBuilder).setSmallIcon(R.mipmap.ic_launcher);
+        verify(notificationBuilder).setSmallIcon(R.drawable.notification_icon_background);
         verify(notificationBuilder).setCustomContentView(any(RemoteViews::class.java))
         verify(remoteViews).setTextViewText(R.id.title, NotificationScheduler.TITLE)
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)
@@ -140,6 +136,7 @@ class ScheduleNotificationTest {
         verify(remoteViews).setTextViewText(R.id.feeling_2, feelings[2])
         verify(remoteViews).setTextViewText(R.id.feeling_3, feelings[3])
         verify(remoteViews).setTextViewText(R.id.feeling_4, feelings[4])
+        verify(remoteViews).setTextViewText(R.id.feeling_5, feelings[5])
         verify(remoteViews).setPendingIntentTemplate(R.id.feelings, notificationActionsPendingIntent)
 
         verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_0), eq(actionsIntent))
@@ -152,5 +149,7 @@ class ScheduleNotificationTest {
         verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[3]);
         verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_4), eq(actionsIntent))
         verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[4]);
+        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_5), eq(actionsIntent))
+        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[5]);
     }
 }
