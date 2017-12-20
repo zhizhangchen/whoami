@@ -1,13 +1,11 @@
 package ca.blogspot.johnchenprogramming.whoami
 
-import android.app.AlarmManager
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.*
 import android.os.Build
 import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
+import android.widget.CheckBox
 import android.widget.RemoteViews
 import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.PREFERENCE_ALARM_SET
 import junit.framework.Assert.assertTrue
@@ -21,10 +19,19 @@ import org.powermock.api.mockito.PowerMockito
 import org.powermock.api.mockito.PowerMockito.whenNew
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
+import org.powermock.reflect.Whitebox
+
+
 
 
 @RunWith(PowerMockRunner::class)
-@PrepareForTest(PendingIntent::class, NotificationScheduler::class, PreferenceManager::class)
+@PrepareForTest(
+        PendingIntent::class,
+        NotificationScheduler::class,
+        PreferenceManager::class,
+        Build.VERSION::class)
 
 class ScheduleNotificationTest {
     companion object {
@@ -151,5 +158,15 @@ class ScheduleNotificationTest {
         verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[4]);
         verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_5), eq(actionsIntent))
         verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[5]);
+    }
+
+    @Test
+    fun notification_createApi26() {
+        Whitebox.setInternalState(Build.VERSION::class.java, "SDK_INT", 26)
+        val chanel = mock(NotificationChannel::class.java)
+        whenNew(NotificationChannel::class.java).withAnyArguments().thenReturn(chanel)
+        val remoteViews = mock(RemoteViews::class.java)
+        whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
+        notification_create()
     }
 }

@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
+<manifest package="ca.blogspot.johnchenprogramming.ui.test"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ca.blogspot.johnchenprogramming.whoami">
+    >
     <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18"/>
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:name="ca.blogspot.johnchenprogramming.whoami.WhoAmIApplication"
+        >
+
+        <activity
+            android:name="ca.blogspot.johnchenprogramming.whoami.TestActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>

@@ -5,6 +5,8 @@
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/title"
+        android:textSize="@dimen/tile_size"
+        android:textColor="@color/abc_primary_text_material_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -14,40 +16,38 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
-        android:drawableLeft="@android:drawable/ic_notification_overlay"
-        android:drawableStart="@android:drawable/ic_notification_overlay"
+        style="@style/radio_button"
         android:id="@+id/feeling_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
