@@ -2,7 +2,6 @@ package ca.blogspot.johnchenprogramming.whoami
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -22,6 +21,8 @@ open class NotificationScheduler(private val context: Context? = null, private v
         val TITLE = "How are you feeling?"
         val SUB_TITLE = "(Observe your feelings without judgements...)"
         val PREFERENCE_ALARM_SET: String = "ALARM_SET"
+        val SELECTED_FEELING_KEY: String = "SELECTED_FEELING"
+        val FEELING_VIEW_IDS = listOf(R.id.feeling_0, R.id.feeling_1, R.id.feeling_2, R.id.feeling_3, R.id.feeling_4, R.id.feeling_5)
     }
 
     @SuppressLint("NewApi")
@@ -50,36 +51,17 @@ open class NotificationScheduler(private val context: Context? = null, private v
                 .setSmallIcon(R.drawable.notification_icon_background)
                 .setCustomContentView(remoteViews)
                 .setStyle(style)
-        val feelings = FeelingReminder().getFeelingList()
         remoteViews.setTextViewText(R.id.title, TITLE)
         remoteViews.setTextViewText(R.id.sub_title, SUB_TITLE)
-        remoteViews.setTextViewText(R.id.feeling_0, feelings[0])
-        remoteViews.setTextViewText(R.id.feeling_1, feelings[1])
-        remoteViews.setTextViewText(R.id.feeling_2, feelings[2])
-        remoteViews.setTextViewText(R.id.feeling_3, feelings[3])
-        remoteViews.setTextViewText(R.id.feeling_4, feelings[4])
-        remoteViews.setTextViewText(R.id.feeling_5, feelings[5])
-        remoteViews.setPendingIntentTemplate(
-                R.id.feelings,
-                PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        Intent(context, NotificationActions::class.java),
-                        0))
-        var fillInIntent = Intent(context, NotificationActions::class.java)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[0]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_0, fillInIntent)
-        fillInIntent = Intent(context, NotificationActions::class.java)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[1]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_1, fillInIntent)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[2]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_2, fillInIntent)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[3]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_3, fillInIntent)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[4]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_4, fillInIntent)
-        fillInIntent.putExtra("SELECTED_FEELING", feelings[5]);
-        remoteViews.setOnClickFillInIntent(R.id.feeling_5, fillInIntent)
+        val feelings = FeelingReminder().getFeelingList()
+        for (i in feelings.indices) {
+            remoteViews.setTextViewText(FEELING_VIEW_IDS[i], feelings[i])
+            val feelingIntent = Intent(context, NotificationActions::class.java)
+            feelingIntent.putExtra(SELECTED_FEELING_KEY, feelings[i])
+            remoteViews.setOnClickPendingIntent(
+                    FEELING_VIEW_IDS[i],
+                    PendingIntent.getBroadcast(context, 0, feelingIntent, 0))
+        }
         nm.notify(0, notificationBuilder.build());
     }
 

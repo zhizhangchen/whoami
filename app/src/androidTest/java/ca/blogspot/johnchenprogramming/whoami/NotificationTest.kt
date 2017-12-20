@@ -2,11 +2,12 @@ package ca.blogspot.johnchenprogramming.whoami
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
+import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.*
 
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.hamcrest.CoreMatchers.not
 
 class NotificationTest {
     @Test
@@ -26,12 +27,18 @@ class NotificationTest {
         assertEquals(NotificationScheduler.TITLE, title.text)
         assertEquals(NotificationScheduler.SUB_TITLE, subtitle.text)
         device.waitForIdle()
-        FeelingReminder().getFeelingList().forEach {feeling ->
+        feelings.forEach {feeling ->
             assertThat(
                     feeling,
-                    null,
-                    not(device.findObject(By.text(feeling))))
+                    device.findObject(By.text(feeling)),
+                    notNullValue())
         }
+        val firstFeelingSelector = By.text(feelings[0])
+        device.findObject(firstFeelingSelector).click()
+        assertThat(
+                "Notification should have been dismissed",
+                device.findObject(firstFeelingSelector),
+                nullValue())
         device.pressHome()
     }
 }

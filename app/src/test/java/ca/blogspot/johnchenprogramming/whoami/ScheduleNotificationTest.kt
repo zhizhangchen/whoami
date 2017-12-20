@@ -6,6 +6,7 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
+import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.FEELING_VIEW_IDS
 import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.PREFERENCE_ALARM_SET
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -133,26 +134,11 @@ class ScheduleNotificationTest {
         verify(remoteViews).setTextViewText(R.id.title, NotificationScheduler.TITLE)
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)
         val feelings = FeelingReminder().getFeelingList()
-        verify(remoteViews).setTextViewText(R.id.feeling_0, feelings[0])
-        verify(remoteViews).setTextViewText(R.id.feeling_1, feelings[1])
-        verify(remoteViews).setTextViewText(R.id.feeling_2, feelings[2])
-        verify(remoteViews).setTextViewText(R.id.feeling_3, feelings[3])
-        verify(remoteViews).setTextViewText(R.id.feeling_4, feelings[4])
-        verify(remoteViews).setTextViewText(R.id.feeling_5, feelings[5])
-        verify(remoteViews).setPendingIntentTemplate(R.id.feelings, notificationActionsPendingIntent)
-
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_0), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[0]);
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_1), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[1]);
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_2), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[2]);
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_3), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[3]);
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_4), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[4]);
-        verify(remoteViews).setOnClickFillInIntent(eq(R.id.feeling_5), eq(actionsIntent))
-        verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[5]);
+        for(i in feelings.indices) {
+            verify(remoteViews).setTextViewText(FEELING_VIEW_IDS[i], feelings[i])
+            verify(remoteViews).setOnClickPendingIntent(eq(FEELING_VIEW_IDS[i]), eq(notificationActionsPendingIntent))
+            verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[i]);
+        }
     }
 
     @Test
