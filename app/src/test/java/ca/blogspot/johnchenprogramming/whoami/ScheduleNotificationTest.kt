@@ -5,10 +5,9 @@ import android.content.*
 import android.os.Build
 import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
-import android.widget.CheckBox
 import android.widget.RemoteViews
 import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.PREFERENCE_ALARM_SET
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,11 +18,7 @@ import org.powermock.api.mockito.PowerMockito
 import org.powermock.api.mockito.PowerMockito.whenNew
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 import org.powermock.reflect.Whitebox
-
-
 
 
 @RunWith(PowerMockRunner::class)

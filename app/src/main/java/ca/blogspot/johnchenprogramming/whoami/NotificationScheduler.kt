@@ -19,8 +19,8 @@ import android.app.NotificationChannel
 open class NotificationScheduler(private val context: Context? = null, private val interval: Long = 0) : BroadcastReceiver() {
     companion object {
         val CHANNEL_ID = "Feelings"
-        val TITLE = "How are you feeling"
-        val SUB_TITLE = "Observe your feelings without judgement"
+        val TITLE = "How are you feeling?"
+        val SUB_TITLE = "(Observe your feelings without judgements...)"
         val PREFERENCE_ALARM_SET: String = "ALARM_SET"
     }
 

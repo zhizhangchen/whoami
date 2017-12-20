@@ -32,5 +32,6 @@ class NotificationTest {
                     null,
                     not(device.findObject(By.text(feeling))))
         }
+        device.pressHome()
     }
 }

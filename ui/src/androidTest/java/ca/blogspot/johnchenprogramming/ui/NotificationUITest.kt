@@ -2,6 +2,7 @@ package ca.blogspot.johnchenprogramming.ui
 
 import android.support.test.InstrumentationRegistry.getTargetContext
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.hasTextColor
 import android.support.test.espresso.matcher.ViewMatchers.withId
