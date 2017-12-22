@@ -59,6 +59,15 @@ class NotificationTest {
         assertNotificationDismissed()
     }
 
+    @Test
+    fun notification_shouldRepeat() {
+        val interval = 5000;
+        NotificationActions.setNotificationInterval(interval)
+        notification_dismissedWhenClickingFeelingIcon()
+        setUp()
+        notification_allContentAreShown()
+    }
+
     private fun findFirstFeeling(): UiObject2? {
         return device.findObject(By.text(feelings[0]))
     }
@@ -69,7 +78,6 @@ class NotificationTest {
                 "Notification should have been dismissed",
                 findFirstFeeling(),
                 nullValue())
-
     }
 
     @After

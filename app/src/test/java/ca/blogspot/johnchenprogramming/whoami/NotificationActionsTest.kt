@@ -1,17 +1,13 @@
 package ca.blogspot.johnchenprogramming.whoami
 
-import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import org.junit.Test
 
 import org.junit.Assert.*
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import org.junit.Before
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
@@ -51,7 +47,7 @@ class NotificationActionsTest {
         doReturn(nm).`when`(context).getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationActions().onReceive(context, null)
         verify(nm).cancel(0)
-        verifyNew(NotificationScheduler::class.java).withArguments(context, NotificationActions.FEELINGS_NOTIFICATION_INTERVAL)
+        verifyNew(NotificationScheduler::class.java).withArguments(context, NotificationActions.interval)
         verify(scheduler).schedule()
     }
 }
