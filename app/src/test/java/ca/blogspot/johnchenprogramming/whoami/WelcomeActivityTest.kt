@@ -5,11 +5,11 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
 
-class ApplicationTest {
+class WelcomeActivityTest {
     @Test
     fun notification_isScheduled() {
         val scheduler = mock(NotificationScheduler::class.java)
-        WhoAmIApplication().init(scheduler)
+        WelcomeActivity().init(scheduler)
         verify(scheduler).schedule()
     }
 }

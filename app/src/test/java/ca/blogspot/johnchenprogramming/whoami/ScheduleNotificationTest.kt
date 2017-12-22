@@ -6,7 +6,8 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
-import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.FEELING_VIEW_IDS
+import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.FEELING_LAYOUT_IDS
+import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.FEELING_TEXT_VIEW_IDS
 import ca.blogspot.johnchenprogramming.whoami.NotificationScheduler.Companion.PREFERENCE_ALARM_SET
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -103,17 +104,6 @@ class ScheduleNotificationTest {
     }
 
     @Test
-    fun schedule_onlyFirstTime() {
-        val scheduler  = NotificationScheduler(context, INTERVAL)
-        scheduler.schedule();
-        scheduler.schedule();
-        verify(am).set(
-                eq(AlarmManager.RTC),
-                ArgumentMatchers.anyLong(),
-                eq(schedulingPendingIntent))
-    }
-
-    @Test
     fun alarm_receive() {
         assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationScheduler::class.java));
     }
@@ -135,8 +125,8 @@ class ScheduleNotificationTest {
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)
         val feelings = FeelingReminder().getFeelingList()
         for(i in feelings.indices) {
-            verify(remoteViews).setTextViewText(FEELING_VIEW_IDS[i], feelings[i])
-            verify(remoteViews).setOnClickPendingIntent(eq(FEELING_VIEW_IDS[i]), eq(notificationActionsPendingIntent))
+            verify(remoteViews).setTextViewText(FEELING_TEXT_VIEW_IDS[i], feelings[i])
+            verify(remoteViews).setOnClickPendingIntent(eq(FEELING_LAYOUT_IDS[i]), eq(notificationActionsPendingIntent))
             verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[i]);
         }
     }

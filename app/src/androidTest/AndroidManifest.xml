@@ -11,13 +11,5 @@
         android:name="ca.blogspot.johnchenprogramming.whoami.WhoAmIApplication"
         >
 
-        <activity
-            android:name="ca.blogspot.johnchenprogramming.whoami.TestActivity"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 </manifest>

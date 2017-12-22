@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_feeling_selection.*
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class FeelingSelectionActivity : AppCompatActivity() {
+class WelcomeActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
@@ -47,8 +47,9 @@ class FeelingSelectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_feeling_selection)
+        init(NotificationScheduler(this))
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mVisible = true
@@ -129,5 +130,9 @@ class FeelingSelectionActivity : AppCompatActivity() {
          * and a change of the status and navigation bar.
          */
         private val UI_ANIMATION_DELAY = 300
+    }
+
+    fun init(scheduler: NotificationScheduler) {
+        scheduler.schedule();
     }
 }

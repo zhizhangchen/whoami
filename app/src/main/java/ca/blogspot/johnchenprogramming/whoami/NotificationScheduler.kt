@@ -10,19 +10,25 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
-import android.preference.PreferenceManager
 import android.app.NotificationChannel
 
 
 
-open class NotificationScheduler(private val context: Context? = null, private val interval: Long = 0) : BroadcastReceiver() {
+open class NotificationScheduler(private val context: Context? = null, private val delay: Long = 0) : BroadcastReceiver() {
     companion object {
         val CHANNEL_ID = "Feelings"
         val TITLE = "How are you feeling?"
         val SUB_TITLE = "(Observe your feelings without judgements...)"
         val PREFERENCE_ALARM_SET: String = "ALARM_SET"
         val SELECTED_FEELING_KEY: String = "SELECTED_FEELING"
-        val FEELING_VIEW_IDS = listOf(R.id.feeling_0, R.id.feeling_1, R.id.feeling_2, R.id.feeling_3, R.id.feeling_4, R.id.feeling_5)
+        val FEELING_TEXT_VIEW_IDS = listOf(R.id.feeling_0, R.id.feeling_1, R.id.feeling_2, R.id.feeling_3, R.id.feeling_4, R.id.feeling_5)
+        val FEELING_LAYOUT_IDS = listOf(
+                R.id.feeling_layout_0,
+                R.id.feeling_layout_1,
+                R.id.feeling_layout_2,
+                R.id.feeling_layout_3,
+                R.id.feeling_layout_4,
+                R.id.feeling_layout_5)
     }
 
     @SuppressLint("NewApi")
@@ -55,31 +61,26 @@ open class NotificationScheduler(private val context: Context? = null, private v
         remoteViews.setTextViewText(R.id.sub_title, SUB_TITLE)
         val feelings = FeelingReminder().getFeelingList()
         for (i in feelings.indices) {
-            remoteViews.setTextViewText(FEELING_VIEW_IDS[i], feelings[i])
+            remoteViews.setTextViewText(FEELING_TEXT_VIEW_IDS[i], feelings[i])
             val feelingIntent = Intent(context, NotificationActions::class.java)
             feelingIntent.putExtra(SELECTED_FEELING_KEY, feelings[i])
             remoteViews.setOnClickPendingIntent(
-                    FEELING_VIEW_IDS[i],
+                    FEELING_LAYOUT_IDS[i],
                     PendingIntent.getBroadcast(context, 0, feelingIntent, 0))
         }
         nm.notify(0, notificationBuilder.build());
     }
 
     open fun schedule() {
-        val p = PreferenceManager.getDefaultSharedPreferences(context)
-        val alarmSet = p.getBoolean(PREFERENCE_ALARM_SET, false)
-        if (!alarmSet) {
-            p.edit().putBoolean(PREFERENCE_ALARM_SET, true).apply()
-            val am = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            am.set(
-                    AlarmManager.RTC,
-                    System.currentTimeMillis(),
-                    PendingIntent.getBroadcast(
-                            context,
-                            0,
-                            Intent(context, NotificationScheduler::class.java),
-                            0)
-            )
-        }
+        val am = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        am.set(
+                AlarmManager.RTC,
+                System.currentTimeMillis() + delay,
+                PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(context, NotificationScheduler::class.java),
+                        0)
+        )
     }
 }

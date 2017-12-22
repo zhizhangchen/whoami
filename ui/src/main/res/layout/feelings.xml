@@ -14,41 +14,100 @@
         android:id="@+id/sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_0"
+    <LinearLayout
+        android:id="@+id/feeling_layout_0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_1"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/feeling_layout_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_2"
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/feeling_layout_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_3"
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/feeling_layout_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_4"
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/feeling_layout_4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        style="@style/radio_button"
-        android:id="@+id/feeling_5"
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/feeling_layout_5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/radiobutton_off_background"
+            android:contentDescription="@string/radio_button" />
+        <TextView
+            style="@style/radio_button"
+            android:id="@+id/feeling_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>

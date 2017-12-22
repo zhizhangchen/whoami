@@ -1,44 +1,79 @@
 package ca.blogspot.johnchenprogramming.whoami
 
 import android.support.test.InstrumentationRegistry
+import android.support.test.InstrumentationRegistry.getTargetContext
+import android.support.test.rule.ActivityTestRule
 import android.support.test.uiautomator.*
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.*
+import org.junit.After
 
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Rule
 
 class NotificationTest {
-    @Test
-    fun notification_isFired() {
-        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    private val feelings = FeelingReminder().getFeelingList()
+    @get:Rule
+    var mActivityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
+
+    @Before
+    fun setUp() {
         device.wakeUp()
         device.openNotification();
         device.wait(Until.hasObject(By.text(NotificationScheduler.TITLE)), 10000)
         val header = device.findObject(By.text("Who Am I"))
-        val feelings = FeelingReminder().getFeelingList()
         if (feelings.any { feeling -> device.findObject(By.text(feeling)) == null }) {
             header.click()
             header.click()
         }
+        device.waitForIdle()
+    }
+
+    @Test
+    fun notification_allContentAreShown() {
         val title = device.findObject(By.text(NotificationScheduler.TITLE))
         val subtitle = device.findObject(By.text(NotificationScheduler.SUB_TITLE))
         assertEquals(NotificationScheduler.TITLE, title.text)
         assertEquals(NotificationScheduler.SUB_TITLE, subtitle.text)
-        device.waitForIdle()
         feelings.forEach {feeling ->
             assertThat(
                     feeling,
                     device.findObject(By.text(feeling)),
                     notNullValue())
         }
-        val firstFeelingSelector = By.text(feelings[0])
-        device.findObject(firstFeelingSelector).click()
+    }
+
+    @Test
+    fun notification_dismissedWhenClickingFeelingText() {
+        findFirstFeeling()?.click()
+        assertNotificationDismissed()
+    }
+
+    @Test
+    fun notification_dismissedWhenClickingFeelingIcon() {
+        val radioButton = By.desc(getTargetContext().getString(R.string.radio_button))
+        device.findObject(radioButton).click()
+        assertNotificationDismissed()
+    }
+
+    private fun findFirstFeeling(): UiObject2? {
+        return device.findObject(By.text(feelings[0]))
+    }
+
+    private fun assertNotificationDismissed() {
+        device.waitForIdle()
         assertThat(
                 "Notification should have been dismissed",
-                device.findObject(firstFeelingSelector),
+                findFirstFeeling(),
                 nullValue())
+
+    }
+
+    @After
+    fun tearDown() {
         device.pressHome()
     }
 }
