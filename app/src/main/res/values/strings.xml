@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Who Am I</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="button">OK</string>
+    <string name="content">Welcome!\n
+        This is a simple tool that reminds you to be aware of yourself.\n
+        Please check your notification bar…
+    </string>
 </resources>
