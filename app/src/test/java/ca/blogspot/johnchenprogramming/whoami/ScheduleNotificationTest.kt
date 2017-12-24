@@ -119,7 +119,7 @@ class ScheduleNotificationTest {
         `when`(notificationBuilder.setCustomContentView(any(RemoteViews::class.java))).thenReturn(notificationBuilder)
         NotificationScheduler(context, INTERVAL).onReceive(context, intent)
         verify(nm).notify(ArgumentMatchers.anyInt(), eq(notification));
-        verify(notificationBuilder).setSmallIcon(R.drawable.notification_icon_background);
+        verify(notificationBuilder).setSmallIcon(R.drawable.who_am_i);
         verify(notificationBuilder).setCustomContentView(any(RemoteViews::class.java))
         verify(remoteViews).setTextViewText(R.id.title, NotificationScheduler.TITLE)
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)

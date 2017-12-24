@@ -54,7 +54,7 @@ open class NotificationScheduler(private val context: Context? = null, private v
         };
 
         notificationBuilder
-                .setSmallIcon(R.drawable.notification_icon_background)
+                .setSmallIcon(R.drawable.who_am_i)
                 .setCustomContentView(remoteViews)
                 .setStyle(style)
         remoteViews.setTextViewText(R.id.title, TITLE)
