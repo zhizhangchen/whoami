@@ -4,10 +4,10 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class FeelingSelectionTest() {
+class FeelingSelectionTest {
     @Test
     fun feelingList_isLongerThan5() {
-        assertTrue(FeelingReminder().getFeelingList().size >= 5);
+        assertTrue(FeelingReminder().getFeelingList().size >= 5)
     }
 
     @Test

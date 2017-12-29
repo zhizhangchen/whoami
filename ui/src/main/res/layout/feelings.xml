@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/feelings"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="UnusedResources">
     <TextView
         android:id="@+id/title"
-        android:textSize="@dimen/tile_size"
-        android:textColor="@color/abc_primary_text_material_light"
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -14,10 +17,12 @@
         android:id="@+id/sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <LinearLayout
         android:id="@+id/feeling_layout_0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -32,7 +37,8 @@
     <LinearLayout
         android:id="@+id/feeling_layout_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -49,7 +55,8 @@
     <LinearLayout
         android:id="@+id/feeling_layout_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -65,7 +72,8 @@
     <LinearLayout
         android:id="@+id/feeling_layout_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -81,7 +89,8 @@
     <LinearLayout
         android:id="@+id/feeling_layout_4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -94,10 +103,12 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/feeling_layout_5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UseCompoundDrawables">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

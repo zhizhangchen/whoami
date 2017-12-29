@@ -8,9 +8,9 @@ import android.content.Intent
 class NotificationActions : BroadcastReceiver() {
 
     companion object {
-        var interval = 60 * 60 * 1000L ;
+        var interval = 60 * 60 * 1000L
         fun setNotificationInterval(interval: Int) {
-            this.interval = interval.toLong();
+            this.interval = interval.toLong()
         }
     }
 

@@ -122,6 +122,6 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     fun init(scheduler: NotificationScheduler) {
-        scheduler.schedule();
+        scheduler.schedule()
     }
 }

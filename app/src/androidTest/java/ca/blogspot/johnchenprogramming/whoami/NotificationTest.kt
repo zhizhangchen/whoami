@@ -22,7 +22,7 @@ class NotificationTest {
     @Before
     fun setUp() {
         device.wakeUp()
-        device.openNotification();
+        device.openNotification()
         device.wait(Until.hasObject(By.text(NotificationScheduler.TITLE)), 10000)
         val header = device.findObject(By.text("Who Am I"))
         if (feelings.any { feeling -> device.findObject(By.text(feeling)) == null }) {
@@ -61,7 +61,7 @@ class NotificationTest {
 
     @Test
     fun notification_shouldRepeat() {
-        val interval = 5000;
+        val interval = 5000
         NotificationActions.setNotificationInterval(interval)
         notification_dismissedWhenClickingFeelingIcon()
         setUp()

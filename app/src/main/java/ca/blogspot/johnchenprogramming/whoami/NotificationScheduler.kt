@@ -45,13 +45,13 @@ open class NotificationScheduler(private val context: Context? = null, private v
                 nm.createNotificationChannel(channel)
             }
         }
-        val remoteViews = RemoteViews(context.packageName, R.layout.feelings);
+        val remoteViews = RemoteViews(context.packageName, R.layout.feelings)
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
         val style = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             NotificationCompat.DecoratedCustomViewStyle()
         } else {
             NotificationCompat.BigPictureStyle()
-        };
+        }
 
         notificationBuilder
                 .setSmallIcon(R.drawable.who_am_i)
@@ -68,7 +68,7 @@ open class NotificationScheduler(private val context: Context? = null, private v
                     FEELING_LAYOUT_IDS[i],
                     PendingIntent.getBroadcast(context, 0, feelingIntent, 0))
         }
-        nm.notify(0, notificationBuilder.build());
+        nm.notify(0, notificationBuilder.build())
     }
 
     open fun schedule() {

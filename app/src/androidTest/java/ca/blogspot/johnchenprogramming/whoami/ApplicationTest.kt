@@ -10,7 +10,7 @@ import org.junit.Test
 class ApplicationAndroidTest {
     @Test
     fun applicationIcon() {
-        val context = getTargetContext();
-        assertEquals(context.applicationInfo.icon, R.drawable.who_am_i);
+        val context = getTargetContext()
+        assertEquals(context.applicationInfo.icon, R.drawable.who_am_i)
     }
 }

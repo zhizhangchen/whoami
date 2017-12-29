@@ -23,28 +23,28 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 class NotificationActionsTest {
     @Mock
-    private lateinit var context : Context;
+    private lateinit var context : Context
 
     @Mock
-    private lateinit var nm : NotificationManager;
+    private lateinit var nm : NotificationManager
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.initMocks(this)
     }
 
     @Test
     fun notificationActions_isBroadcastReceiver() {
-        assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationActions::class.java));
+        assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationActions::class.java))
     }
 
     @Test
     fun notificationActions_cancelAndRescheduleNotification() {
         PowerMockito.mockStatic(NotificationActions::class.java)
-        val scheduler = mock(NotificationScheduler::class.java);
+        val scheduler = mock(NotificationScheduler::class.java)
         whenNew(NotificationScheduler::class.java).withAnyArguments()
                 .thenReturn(scheduler)
-        doReturn(nm).`when`(context).getSystemService(Context.NOTIFICATION_SERVICE);
+        doReturn(nm).`when`(context).getSystemService(Context.NOTIFICATION_SERVICE)
         NotificationActions().onReceive(context, null)
         verify(nm).cancel(0)
         verifyNew(NotificationScheduler::class.java).withArguments(context, NotificationActions.interval)

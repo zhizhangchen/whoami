@@ -19,8 +19,8 @@ class NotificationUITest {
 
     @Test
     fun feelingsView_checkFontSizes () {
-        onView(withId(R.id.title)).check(hasTextSize(R.dimen.tile_size)).check(
-                matches(hasTextColor(R.color.abc_primary_text_material_light)));
+        onView(withId(R.id.title)).check(hasTextSize(R.dimen.title_size)).check(
+                matches(hasTextColor(R.color.black)))
     }
 }
 

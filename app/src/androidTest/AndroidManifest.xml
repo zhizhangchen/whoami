@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning"
-        android:name="ca.blogspot.johnchenprogramming.whoami.WhoAmIApplication"
         >
 
     </application>

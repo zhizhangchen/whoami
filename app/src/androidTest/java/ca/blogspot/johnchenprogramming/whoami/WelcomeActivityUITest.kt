@@ -22,11 +22,11 @@ class WelcomeActivityUITest {
         onView(withText(R.string.content)).perform(click())
         sleep(1000)
         onView(withText(R.string.button)).perform(click())
-        assertTrue(activityRule.activity.isFinishing);
+        assertTrue(activityRule.activity.isFinishing)
     }
 
     @Test
     fun buttonTextSize_is20sp() {
-        onView(withText(R.string.button)).check(hasTextSize(R.dimen.button_size));
+        onView(withText(R.string.button)).check(hasTextSize(R.dimen.button_size))
     }
 }

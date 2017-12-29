@@ -36,35 +36,35 @@ class ScheduleNotificationTest {
     }
 
     @Mock
-    private lateinit var context : Context;
+    private lateinit var context : Context
 
     @Mock
-    private lateinit var am : AlarmManager;
+    private lateinit var am : AlarmManager
 
     @Mock
-    private lateinit var nm : NotificationManager;
+    private lateinit var nm : NotificationManager
 
     @Mock
-    private lateinit var schedulingPendingIntent: PendingIntent;
+    private lateinit var schedulingPendingIntent: PendingIntent
 
     @Mock
-    private lateinit var notificationActionsPendingIntent: PendingIntent;
+    private lateinit var notificationActionsPendingIntent: PendingIntent
 
     @Mock
-    private lateinit var intent : Intent;
+    private lateinit var intent : Intent
 
     @Mock
-    private lateinit var actionsIntent : Intent;
+    private lateinit var actionsIntent : Intent
 
     @Mock
-    private lateinit var notificationBuilder : NotificationCompat.Builder;
+    private lateinit var notificationBuilder : NotificationCompat.Builder
 
     private var alarmSet  = false
 
     @Before
     fun setUp() {
-        doReturn(am).`when`(context).getSystemService(Context.ALARM_SERVICE);
-        doReturn(nm).`when`(context).getSystemService(Context.NOTIFICATION_SERVICE);
+        doReturn(am).`when`(context).getSystemService(Context.ALARM_SERVICE)
+        doReturn(nm).`when`(context).getSystemService(Context.NOTIFICATION_SERVICE)
         PowerMockito.mockStatic(PendingIntent::class.java)
         `when`(PendingIntent.getBroadcast(
                 any(Context::class.java),
@@ -79,12 +79,12 @@ class ScheduleNotificationTest {
                     schedulingPendingIntent
         }
 
-        whenNew(Intent::class.java).withArguments(context, NotificationScheduler::class.java).thenReturn(intent);
-        val component = mock(ComponentName::class.java);
+        whenNew(Intent::class.java).withArguments(context, NotificationScheduler::class.java).thenReturn(intent)
+        val component = mock(ComponentName::class.java)
         `when`(component.className).thenReturn(NotificationScheduler::class.java.name)
         `when`(intent.component).thenReturn(component)
-        whenNew(Intent::class.java).withArguments(context, NotificationActions::class.java).thenReturn(actionsIntent);
-        val actionsComponent = mock(ComponentName::class.java);
+        whenNew(Intent::class.java).withArguments(context, NotificationActions::class.java).thenReturn(actionsIntent)
+        val actionsComponent = mock(ComponentName::class.java)
         `when`(actionsComponent.className).thenReturn(NotificationActions::class.java.name)
         `when`(actionsIntent.component).thenReturn(actionsComponent)
 
@@ -105,12 +105,12 @@ class ScheduleNotificationTest {
 
     @Test
     fun alarm_receive() {
-        assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationScheduler::class.java));
+        assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationScheduler::class.java))
     }
 
     @Test
     fun notification_create() {
-        whenNew(NotificationCompat.Builder::class.java).withArguments(context, NotificationScheduler.CHANNEL_ID).thenReturn(notificationBuilder);
+        whenNew(NotificationCompat.Builder::class.java).withArguments(context, NotificationScheduler.CHANNEL_ID).thenReturn(notificationBuilder)
         val remoteViews = mock(RemoteViews::class.java)
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
         val notification = mock(Notification::class.java)
@@ -118,8 +118,8 @@ class ScheduleNotificationTest {
         `when`(notificationBuilder.setSmallIcon(ArgumentMatchers.anyInt())).thenReturn(notificationBuilder)
         `when`(notificationBuilder.setCustomContentView(any(RemoteViews::class.java))).thenReturn(notificationBuilder)
         NotificationScheduler(context, INTERVAL).onReceive(context, intent)
-        verify(nm).notify(ArgumentMatchers.anyInt(), eq(notification));
-        verify(notificationBuilder).setSmallIcon(R.drawable.who_am_i);
+        verify(nm).notify(ArgumentMatchers.anyInt(), eq(notification))
+        verify(notificationBuilder).setSmallIcon(R.drawable.who_am_i)
         verify(notificationBuilder).setCustomContentView(any(RemoteViews::class.java))
         verify(remoteViews).setTextViewText(R.id.title, NotificationScheduler.TITLE)
         verify(remoteViews).setTextViewText(R.id.sub_title, NotificationScheduler.SUB_TITLE)
@@ -127,7 +127,7 @@ class ScheduleNotificationTest {
         for(i in feelings.indices) {
             verify(remoteViews).setTextViewText(FEELING_TEXT_VIEW_IDS[i], feelings[i])
             verify(remoteViews).setOnClickPendingIntent(eq(FEELING_LAYOUT_IDS[i]), eq(notificationActionsPendingIntent))
-            verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[i]);
+            verify(actionsIntent).putExtra("SELECTED_FEELING", feelings[i])
         }
     }
 
