@@ -11,6 +11,6 @@ class ApplicationAndroidTest {
     @Test
     fun applicationIcon() {
         val context = getTargetContext()
-        assertEquals(context.applicationInfo.icon, R.drawable.who_am_i)
+        assertEquals(context.applicationInfo.icon, R.mipmap.ic_launcher_round)
     }
 }

@@ -16,8 +16,8 @@ import org.junit.Rule
 class NotificationTest {
     private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private val feelings = FeelingReminder().getFeelingList()
-    @get:Rule
-    var mActivityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
+    @Rule @JvmField
+    val mActivityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
 
     @Before
     fun setUp() {
