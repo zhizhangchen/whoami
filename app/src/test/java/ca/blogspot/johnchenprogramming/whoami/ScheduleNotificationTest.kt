@@ -73,7 +73,7 @@ class ScheduleNotificationTest {
                 ArgumentMatchers.anyInt())
         ).thenAnswer {
             invocation ->
-                if ((invocation.arguments[2] as Intent).component.className.equals(NotificationActions::class.java.name))
+                if ((invocation.arguments[2] as Intent).component.className == NotificationActions::class.java.name)
                     notificationActionsPendingIntent
                 else
                     schedulingPendingIntent
@@ -109,7 +109,7 @@ class ScheduleNotificationTest {
     }
 
     @Test
-    fun notification_create() {
+    private fun notification_create() {
         whenNew(NotificationCompat.Builder::class.java).withArguments(context, NotificationScheduler.CHANNEL_ID).thenReturn(notificationBuilder)
         val remoteViews = mock(RemoteViews::class.java)
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)

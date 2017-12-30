@@ -20,7 +20,7 @@ class NotificationTest {
     val mActivityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
 
     @Before
-    fun setUp() {
+    private fun setUp() {
         device.wakeUp()
         device.openNotification()
         device.wait(Until.hasObject(By.text(NotificationScheduler.TITLE)), 10000)
@@ -33,7 +33,7 @@ class NotificationTest {
     }
 
     @Test
-    fun notification_allContentAreShown() {
+    private fun notification_allContentAreShown() {
         val title = device.findObject(By.text(NotificationScheduler.TITLE))
         val subtitle = device.findObject(By.text(NotificationScheduler.SUB_TITLE))
         assertEquals(NotificationScheduler.TITLE, title.text)
@@ -53,7 +53,7 @@ class NotificationTest {
     }
 
     @Test
-    fun notification_dismissedWhenClickingFeelingIcon() {
+    private fun notification_dismissedWhenClickingFeelingIcon() {
         val radioButton = By.desc(getTargetContext().getString(R.string.radio_button))
         device.findObject(radioButton).click()
         assertNotificationDismissed()

@@ -14,8 +14,8 @@ import java.lang.Thread.sleep
  * @author John
  */
 class WelcomeActivityUITest {
-    @get:Rule
-    var activityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
+    @Rule @JvmField
+    val activityRule = ActivityTestRule<WelcomeActivity>(WelcomeActivity::class.java)
 
     @Test
     fun content() {

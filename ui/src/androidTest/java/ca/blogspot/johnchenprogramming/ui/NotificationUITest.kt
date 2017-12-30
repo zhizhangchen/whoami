@@ -14,8 +14,8 @@ import org.junit.Test
  * @author John
  */
 class NotificationUITest {
-    @get:Rule
-    var mActivityRule = ActivityTestRule<TestActivity>(TestActivity::class.java)
+    @Rule @JvmField
+    val activityRule = ActivityTestRule<TestActivity>(TestActivity::class.java)
 
     @Test
     fun feelingsView_checkFontSizes () {
