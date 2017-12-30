@@ -4,7 +4,7 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
-import ca.blogspot.johnchenprogramming.whoami.ViewAssertions.hasTextSize
+import ca.blogspot.johnchenprogramming.testutil.ViewAssertions.hasTextSize
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
