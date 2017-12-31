@@ -6,12 +6,12 @@ import org.junit.Assert.*
 
 class FeelingSelectionTest {
     @Test
-    fun feelingList_isLongerThan5() {
+    fun isLongerThanFive() {
         assertTrue(FeelingReminder().getFeelingList().size >= 5)
     }
 
     @Test
-    fun feelingList_contains() {
+    fun content() {
         with(FeelingReminder().getFeelingList()) {
             listOf("angry", "happy", "calm", "depressed", "jealous", "hating")
                     .forEach({w -> assertTrue(any({f -> f.contains(w, true)}))})

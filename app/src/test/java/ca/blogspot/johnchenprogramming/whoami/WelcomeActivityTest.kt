@@ -7,7 +7,7 @@ import org.mockito.Mockito.verify
 
 class WelcomeActivityTest {
     @Test
-    fun notification_isScheduled() {
+    fun isScheduled() {
         val scheduler = mock(NotificationScheduler::class.java)
         WelcomeActivity().init(scheduler)
         verify(scheduler).schedule()

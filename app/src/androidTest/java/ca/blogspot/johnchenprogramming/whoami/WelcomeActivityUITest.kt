@@ -26,7 +26,7 @@ class WelcomeActivityUITest {
     }
 
     @Test
-    fun buttonTextSize_is20sp() {
+    fun isButtonTextSize20sp() {
         onView(withText(R.string.button)).check(hasTextSize(R.dimen.button_size))
     }
 }

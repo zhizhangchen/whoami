@@ -34,12 +34,12 @@ class NotificationActionsTest {
     }
 
     @Test
-    fun notificationActions_isBroadcastReceiver() {
+    fun isBroadcastReceiver() {
         assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationActions::class.java))
     }
 
     @Test
-    fun notificationActions_cancelAndRescheduleNotification() {
+    fun cancelAndRescheduleNotification() {
         PowerMockito.mockStatic(NotificationActions::class.java)
         val scheduler = mock(NotificationScheduler::class.java)
         whenNew(NotificationScheduler::class.java).withAnyArguments()

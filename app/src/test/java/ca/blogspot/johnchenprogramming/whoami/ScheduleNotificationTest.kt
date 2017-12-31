@@ -98,18 +98,18 @@ class ScheduleNotificationTest {
     }
 
     @Test
-    fun notification_scheduled() {
+    fun scheduled() {
         NotificationScheduler(context, INTERVAL).schedule()
         verify(am).set(eq(AlarmManager.RTC), ArgumentMatchers.anyLong(), eq(schedulingPendingIntent))
     }
 
     @Test
-    fun alarm_receive() {
+    fun isNotificationSchedulerBroadcastReceiver() {
         assertTrue(BroadcastReceiver::class.java.isAssignableFrom(NotificationScheduler::class.java))
     }
 
     @Test
-    private fun notification_create() {
+    private fun create() {
         whenNew(NotificationCompat.Builder::class.java).withArguments(context, NotificationScheduler.CHANNEL_ID).thenReturn(notificationBuilder)
         val remoteViews = mock(RemoteViews::class.java)
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
@@ -132,12 +132,12 @@ class ScheduleNotificationTest {
     }
 
     @Test
-    fun notification_createApi26() {
+    fun createApi26() {
         Whitebox.setInternalState(Build.VERSION::class.java, "SDK_INT", 26)
         val chanel = mock(NotificationChannel::class.java)
         whenNew(NotificationChannel::class.java).withAnyArguments().thenReturn(chanel)
         val remoteViews = mock(RemoteViews::class.java)
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
-        notification_create()
+        create()
     }
 }

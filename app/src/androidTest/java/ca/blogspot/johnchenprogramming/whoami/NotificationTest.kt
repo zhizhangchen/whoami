@@ -33,7 +33,7 @@ class NotificationTest {
     }
 
     @Test
-    private fun notification_allContentAreShown() {
+    private fun allContentAreShown() {
         val title = device.findObject(By.text(NotificationScheduler.TITLE))
         val subtitle = device.findObject(By.text(NotificationScheduler.SUB_TITLE))
         assertEquals(NotificationScheduler.TITLE, title.text)
@@ -47,25 +47,25 @@ class NotificationTest {
     }
 
     @Test
-    fun notification_dismissedWhenClickingFeelingText() {
+    fun dismissedWhenClickingFeelingText() {
         findFirstFeeling()?.click()
         assertNotificationDismissed()
     }
 
     @Test
-    private fun notification_dismissedWhenClickingFeelingIcon() {
+    private fun dismissedWhenClickingFeelingIcon() {
         val radioButton = By.desc(getTargetContext().getString(R.string.radio_button))
         device.findObject(radioButton).click()
         assertNotificationDismissed()
     }
 
     @Test
-    fun notification_shouldRepeat() {
+    fun shouldRepeat() {
         val interval = 5000
         NotificationActions.setNotificationInterval(interval)
-        notification_dismissedWhenClickingFeelingIcon()
+        dismissedWhenClickingFeelingIcon()
         setUp()
-        notification_allContentAreShown()
+        allContentAreShown()
     }
 
     private fun findFirstFeeling(): UiObject2? {

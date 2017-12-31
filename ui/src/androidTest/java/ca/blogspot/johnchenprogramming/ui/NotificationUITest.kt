@@ -18,7 +18,7 @@ class NotificationUITest {
     val activityRule = ActivityTestRule<TestActivity>(TestActivity::class.java)
 
     @Test
-    fun feelingsView_checkFontSizes () {
+    fun checkFeelingsViewFontSizes () {
         onView(withId(R.id.title)).check(hasTextSize(R.dimen.title_size)).check(
                 matches(hasTextColor(R.color.black)))
     }
