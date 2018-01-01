@@ -109,7 +109,7 @@ class ScheduleNotificationTest {
     }
 
     @Test
-    private fun create() {
+    public fun create() {
         whenNew(NotificationCompat.Builder::class.java).withArguments(context, NotificationScheduler.CHANNEL_ID).thenReturn(notificationBuilder)
         val remoteViews = mock(RemoteViews::class.java)
         whenNew(RemoteViews::class.java).withArguments(eq(context.packageName), ArgumentMatchers.anyInt()).thenReturn(remoteViews)
