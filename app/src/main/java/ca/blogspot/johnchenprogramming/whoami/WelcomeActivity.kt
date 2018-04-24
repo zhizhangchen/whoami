@@ -1,5 +1,6 @@
 package ca.blogspot.johnchenprogramming.whoami
 
+import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -57,7 +58,10 @@ class WelcomeActivity : AppCompatActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        button.setOnTouchListener({_, _ -> finish(); false })
+        button.setOnClickListener({
+            startActivity(Intent(this, Activity2::class.java))
+            //overridePendingTransition(0, 0)
+        })
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -66,7 +70,7 @@ class WelcomeActivity : AppCompatActivity() {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100)
+        //delayedHide(100)
     }
 
     private fun toggle() {
